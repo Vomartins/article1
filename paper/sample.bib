@@ -1,0 +1,551 @@
+
+% other linear algebra software
+% and linear algebra papers
+@phdthesis{umfpack_gpu1,
+   title={A framework to implement a multifrontal scheme on GPU architectures with OpenCL},
+   author={BONELLI, FEDERICO},
+   year={2011},
+   publisher={Italy},
+   school = {Politecnico di Milano}
+}
+@article{umfpack_gpu2,
+    title = {A CPU–GPU hybrid approach for the unsymmetric multifrontal method},
+    journal = {Parallel Computing},
+    volume = {37},
+    number = {12},
+    pages = {759-770},
+    year = {2011},
+    note = {6th International Workshop on Parallel Matrix Algorithms and Applications (PMAA'10)},
+    issn = {0167-8191},
+    doi = {https://doi.org/10.1016/j.parco.2011.09.002},
+    url = {https://www.sciencedirect.com/science/article/pii/S0167819111001293},
+    author = {Chenhan D. Yu and Weichung Wang and Dan’l Pierce}
+}
+@article{umfpack,
+author = {Davis, Timothy A.},
+title = {Algorithm 832: UMFPACK V4.3---an Unsymmetric-Pattern Multifrontal Method},
+year = {2004},
+issue_date = {June 2004},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {30},
+number = {2},
+issn = {0098-3500},
+url = {https://doi.org/10.1145/992200.992206},
+doi = {10.1145/992200.992206},
+journal = {ACM Trans. Math. Softw.},
+month = {jun},
+pages = {196–199},
+numpages = {4},
+}
+@article{sparse_backward_error,
+    author = {Arioli, M. and Demmel, J. W. and Duff, I. S.},
+    title = {Solving Sparse Linear Systems with Sparse Backward Error},
+    journal = {SIAM Journal on Matrix Analysis and Applications},
+    volume = {10},
+    number = {2},
+    pages = {165-190},
+    year = {1989},
+    doi = {10.1137/0610013},
+    URL = {https://doi.org/10.1137/0610013}
+}
+@inproceedings{blocked_spmv,
+    title={Optimization of block sparse matrix-vector multiplication on shared-memory parallel architectures},
+    author={Eberhardt, Ryan and Hoemmen, Mark},
+    booktitle={2016 IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW)},
+    pages={663--672},
+    year={2016},
+    organization={IEEE}
+}
+@misc{suitesparse,
+    author={Tim Davis},
+    url={https://people.engr.tamu.edu/davis/research.html}
+}
+@misc{viennacl,
+    author ={},
+    url={http://viennacl.sourceforge.net/}
+}
+@misc{viennacl_prec,
+    author ={},
+    url={http://viennacl.sourceforge.net/doc/manual-algorithms.html#manual-algorithms-preconditioners}
+}
+@misc{viennacl_block_ilu,
+    author ={},
+    url="http://viennacl.sourceforge.net/doc/manual-algorithms.html#manual-algorithms-preconditioners-block-ilu"
+}
+@article{ginkgo-toms-2022,
+    title = {{Ginkgo: A Modern Linear Operator Algebra Framework for High Performance Computing}},
+    volume = {48},
+    copyright = {All rights reserved},
+    issn = {0098-3500},
+    shorttitle = {Ginkgo},
+    url = {https://doi.org/10.1145/3480935},
+    doi = {10.1145/3480935},
+    number = {1},
+    urldate = {2022-02-17},
+    journal = {ACM Transactions on Mathematical Software},
+    author = {Anzt, Hartwig and Cojean, Terry and Flegar, Goran and Göbel, Fritz and Grützmacher, Thomas and Nayak, Pratik and Ribizel, Tobias and Tsai, Yuhsiang Mike and Quintana-Ortí, Enrique S.},
+    month = {feb},
+    year = {2022},
+    pages = {2:1--2:33}
+}
+@article{chow_patel_decomp,
+  title={Fine-grained parallel incomplete LU factorization},
+  author={Chow, Edmond and Patel, Aftab},
+  journal={SIAM journal on Scientific Computing},
+  volume={37},
+  number={2},
+  pages={C169--C193},
+  year={2015},
+  publisher={SIAM}
+}
+@InProceedings{chow_patel_apply,
+    author="Anzt, Hartwig and Chow, Edmond and Dongarra, Jack",
+    editor="Tr{\"a}ff, Jesper Larsson and Hunold, Sascha and Versaci, Francesco",
+    title="Iterative Sparse Triangular Solves for Preconditioning",
+    booktitle="Euro-Par 2015: Parallel Processing",
+    year="2015",
+    publisher="Springer Berlin Heidelberg",
+    address="Berlin, Heidelberg",
+    pages="650--661",
+    isbn="978-3-662-48096-0"
+}
+@article{amgcl1,
+    author="Demidov, D.",
+    title="AMGCL: An Efficient, Flexible, and Extensible Algebraic Multigrid Implementation",
+    journal="Lobachevskii Journal of Mathematics",
+    year="2019",
+    month="May",
+    day="01",
+    volume="40",
+    number="5",
+    pages="535--546",
+    issn="1818-9962",
+    doi="10.1134/S1995080219050056",
+    url="https://doi.org/10.1134/S1995080219050056"
+}
+@article{amgcl2,
+    author = "Denis Demidov",
+    title = "AMGCL -- A C++ library for efficient solution of large sparse linear systems",
+    journal = "Software Impacts",
+    volume = "6",
+    pages = "100037",
+    year = "2020",
+    issn = "2665-9638",
+    doi = "10.1016/j.simpa.2020.100037",
+    url = "https://doi.org/10.1016/j.simpa.2020.100037"
+}
+@misc{eigen,
+    author ={},
+    url="http://eigen.tuxfamily.org/"
+}
+@misc{blaze,
+    author ={},
+    url="https://bitbucket.org/blaze-lib/blaze"
+}
+@misc{vexcl,
+    author ={},
+    url="https://github.com/ddemidov/vexcl"
+}
+@misc{rocalution,
+    author ={},
+    url="https://github.com/ROCmSoftwarePlatform/rocALUTION"
+}
+@misc{rocsparse,
+    author ={},
+    url="https://github.com/ROCmSoftwarePlatform/rocSPARSE"
+}
+@misc{rocm,
+    author ={},
+    url="https://github.com/RadeonOpenCompute/ROCm"
+}
+@misc{rocprof,
+    author ={},
+    url="https://rocmdocs.amd.com/en/latest/ROCm_Tools/ROCm-Tools.html"
+}
+@misc{cusparse,
+    author ={},
+    url="https://docs.nvidia.com/cuda/cusparse/index.html"
+}
+@misc{cublas,
+    author ={},
+    url="https://docs.nvidia.com/cuda/cublas/index.html"
+}
+@misc{hip,
+    author ={},
+    url="https://github.com/ROCm-Developer-Tools/HIP"
+}
+@misc{magma,
+    author ={},
+    url="https://icl.utk.edu/magma/index.html",
+}
+@conference{magma_paper,
+    title     = {Optimizing Krylov Subspace Solvers on Graphics Processing Units},
+    author    = {Hartwig Anzt and  William Sawyer and Stanimire Tomov and Piotr Luszczek and 
+                 Ichitaro Yamazaki and Jack Dongarra},
+    booktitle = {Fourth International Workshop on Accelerators and Hybrid Exascale Systems (AsHES), IPDPS 2014},
+    year      = {2014},
+    month     = {05-2014},
+    publisher = {IEEE},
+    organization= {IEEE},
+    address   = {Phoenix, AZ}
+}
+@article{dune,
+  author = {M. Blatt and A. Burchardt and A. Dedner and Ch. Engwer
+    and J. Fahlke and B. Flemisch and Ch. Gersbacher and C. Gr\"aser
+    and F. Gruber and Ch. Gr\"uninger and D. Kempf and R. Kl{\"o}fkorn
+    and T. Malkmus and S. Müthing and M. Nolte and M. Piatkowski and O. Sander},
+  title = {{The Distributed and Unified Numerics Environment, Version 2.4}},
+  journal = {Archive of Numerical Software},
+  volume = {4},
+  number = {100},
+  year = {2016},
+  keywords = {DUNE, Numerical Software},
+  issn = {2197-8263},
+  pages = {13--29},
+  doi = {10.11588/ans.2016.100.26526},
+  url = {http://dx.doi.org/10.11588/ans.2016.100.26526}
+}
+@inproceedings{dune-istl,
+  author = {Blatt, M. and Bastian, P.},
+  title = {The Iterative Solver Template Library},
+  booktitle = {Applied Parallel Computing -- State of the Art in Scientific Computing},
+  year = {2007},
+  editor = {Kagstr\"om, B. and Elmroth, E. and Dongarra, J. and Wasniewski, J.},
+  pages = {666-675},
+  address = {Berlin/Heidelberg},
+  publisher = {Springer}
+}
+@article{saad1,
+    title = {Iterative solution of linear systems in the 20th century},
+    journal = {Journal of Computational and Applied Mathematics},
+    volume = {123},
+    number = {1},
+    pages = {1-33},
+    year = {2000},
+    note = {Numerical Analysis 2000. Vol. III: Linear Algebra},
+    issn = {0377-0427},
+    doi = {https://doi.org/10.1016/S0377-0427(00)00412-X},
+    url = {https://www.sciencedirect.com/science/article/pii/S037704270000412X},
+    author = {Yousef Saad and Henk A. {van der Vorst}},
+}
+@book{saad2,
+  title={Iterative methods for sparse linear systems},
+  author={Saad, Yousef},
+  year={2003},
+  publisher={SIAM}
+}
+% book{chen2006computational,
+%     title={Computational methods for multiphase flows in porous media},
+%     author={Chen, Zhangxin and Huan, Guanren and Ma, Yuanle},
+%     year={2006},
+%     publisher={SIAM}
+% } % 80-90% of time spend in linear solve
+@incollection{chen2014gpu,
+    title={GPU-based parallel reservoir simulators},
+    author={Chen, Zhangxin and Liu, Hui and Yu, Song and Hsieh, Ben and Shao, Lei},
+    pages={199--206},
+    year={2014},
+    publisher={Springer},
+    booktitle = {},
+    doi={https://doi.org/10.1007/978-3-319-05789-7_16}
+} % 90% or more of time spend in linear solve
+@article{CPR,
+    title = {Efficient CPR-type preconditioner and its adaptive strategies for large-scale parallel reservoir simulations},
+    journal = {Journal of Computational and Applied Mathematics},
+    volume = {328},
+    pages = {443-468},
+    year = {2018},
+    issn = {0377-0427},
+    doi = {https://doi.org/10.1016/j.cam.2017.07.022},
+    url = {https://www.sciencedirect.com/science/article/pii/S0377042717303734},
+    author = {Kun Wang and Hui Liu and Jia Luo and Zhangxin Chen},
+} % CPR preconditioner
+@proceedings{SPE-173208-MS,
+    author = {Liu, Hui  and Wang, Kun  and Chen, Zhangxin  and Jordan, Kirk E.},
+    title = "{Efficient Multi-stage Preconditioners for Highly Heterogeneous Reservoir Simulations on Parallel Distributed Systems}",
+    volume = {Day 1 Mon, February 23, 2015},
+    series = {SPE Reservoir Simulation Conference},
+    year = {2015},
+    month = {02},
+    doi = {SPE-173208-MS},
+    url = {https://doi.org/SPE-173208-MS},
+    note = {D011S002R005},
+    key = {}
+} % 90+% of time is spend on linear solver
+
+
+% reservoir simulation general
+@article{nardean2022linear,
+  title={Linear solvers for reservoir simulation problems: An overview and recent developments},
+  author={Nardean, Stefano and Ferronato, Massimiliano and Abushaikha, Ahmad},
+  journal={Archives of Computational Methods in Engineering},
+  volume={29},
+  number={6},
+  pages={4341--4378},
+  year={2022},
+  publisher={Springer}
+}
+
+
+
+% OPM software
+@misc{OPM,
+    author ={},
+    url="https://opm-project.org"
+}
+@misc{flow_paper,
+  doi = {10.48550/ARXIV.1910.06059},
+  url = {https://arxiv.org/abs/1910.06059},
+  author = {Rasmussen, Atgeirr Flø and Sandve, Tor Harald and Bao, Kai and Lauser, Andreas and Hove, Joakim and Skaflestad, Bård and Klöfkorn, Robert and Blatt, Markus and Rustad, Alf Birger and Sævareid, Ove and Lie, Knut-Andreas and Thune, Andreas},
+  title = {The Open Porous Media Flow Reservoir Simulator},
+  publisher = {arXiv},
+  year = {2019}
+}
+@misc{flow_manual,
+    author ={},
+    url="https://opm-project.org/?page_id=955"
+}
+@misc{norne,
+    author ={},
+    url="https://opm-project.org/?page_id=559"
+}
+@misc{resinsight,
+    author ={},
+    url="https://resinsight.org/"
+}
+
+
+% other simulators
+@article{boast1,
+    title = {BOAST: a three-dimensional, three-phase black oil applied simulation tool (version 1. 1). Volume I. Technical description and Fortran code},
+    author = {Fanchi, J R and Harpole, K J and Bujnowski, S W},
+    doi = {},
+    url = {https://www.osti.gov/biblio/7069892},
+    place = {United States},
+    year = {1982},
+    month = {9},
+    journal = {}
+}
+@misc{boast2,
+author ={},
+    url="https://netl.doe.gov/node/7530"
+}
+@book{mrst,
+    place={Cambridge},
+    title={An Introduction to Reservoir Simulation Using MATLAB/GNU Octave: User Guide for the MATLAB Reservoir Simulation Toolbox (MRST)},
+    DOI={10.1017/9781108591416},
+    publisher={Cambridge University Press},
+    author={Lie, Knut-Andreas},
+    year={2019}
+}
+@misc{eclipse,
+    author ={},
+    url="https://www.software.slb.com/products/eclipse"
+}
+@misc{intersect,
+    author ={},
+    url="https://www.software.slb.com/products/intersect"
+}
+@misc{echelon,
+    author ={},
+    url="http://stoneridgetechnology.com/echelon/"
+}
+@misc{terapowers,
+    author ={},
+    url="https://www.aramco.com/en/creating-value/technology-development/in-house-developed-technologies/terapowers"
+}
+@misc{shaheen,
+    author ={},
+    url="https://www.hpc.kaust.edu.sa/content/shaheen-ii"
+}
+@misc{geosx,
+    author ={},
+    url="http://www.geosx.org/"
+}
+@misc{tnavigator,
+    author ={},
+    url="http://tnavigator.com/"
+}
+@misc{pflotran,
+    Author = "Peter C. Lichtner and Glenn E. Hammond and Chuan Lu and Satish Karra and Gautam Bisht and Benjamin Andre and Richard T. Mills and Jitendra Kumar and Jennifer M. Frederick",
+    Title = "{PFLOTRAN} {W}eb page",
+    Note = "http://www.pflotran.org",
+    Year = "2020"
+} 
+
+@misc{petsc,
+    author ={},
+    url="https://petsc.org/release/"
+}
+
+% others
+@misc{andreas,
+    author ={},
+    url="https://github.com/andrthu"
+}
+@article{Thune_2021,
+    doi = {10.1186/s13362-021-00108-5},
+    url = {https://doi.org/10.1186/s13362-021-00108-5},
+    year = {2021},
+    month = {jun},
+    publisher = {Springer Science and Business Media {LLC}},
+    volume = {11},
+    number = {1},
+    author = {Andreas Thune and Xing Cai and Alf Birger Rustad},
+    title = {On the impact of heterogeneity-aware mesh partitioning and non-contributing computation removal on parallel reservoir simulations},
+    journal = {Journal of Mathematics in Industry}
+}
+@article{own_paper,
+    author = {Hogervorst, Tom and Nane, R\u{a}zvan and Marchiori, Giacomo and Qiu, Tong Dong and Blatt, Markus and Rustad, Alf Birger},
+    title = {Hardware Acceleration of High-Performance Computational Flow Dynamics Using High-Bandwidth Memory-Enabled Field-Programmable Gate Arrays},
+    year = {2021},
+    issue_date = {June 2022},
+    publisher = {Association for Computing Machinery},
+    volume = {15},
+    number = {2},
+    issn = {1936-7406},
+    url = {https://doi.org/10.1145/3476229},
+    doi = {10.1145/3476229},
+    journal = {ACM Trans. Reconfigurable Technol. Syst.},
+    month = {dec},
+    articleno = {20},
+    numpages = {35}
+}
+@misc{simula1,
+    author ={},
+    url="https://www.simula.no/"
+}
+@misc{simula2,
+    author ={},
+    url="https://www.ex3.simula.no/"
+}
+@misc{simula4,
+    author ={},
+    url="http://wiki.ex3.simula.no/doku.php"
+}
+@misc{acp_nodes,
+    author ={},
+    url="https://dcgpu-csg.atlassian.net/wiki/spaces/DGCSG/pages/950273/ACP+Node+Configuration"
+}
+@book{reservoir_sim1,
+  title={Petroleum reservoir simulations},
+  author={Abou-Kassem, Jamal Hussein and Farouq-Ali, Syed Mohammad and Islam, M Rafiq},
+  year={2013},
+  publisher={Elsevier}
+}
+@misc{reservoir_sim2,
+    author ={},
+    url="https://petrowiki.spe.org/Reservoir_simulation"
+}
+@article{blackoil_model,
+    doi       = {10.2307/2101984},
+    title     = {Mathematical Structure of the Black-Oil Model for Petroleum Reservoir Simulation},
+    author    = {John A. Trangenstein and John B. Bell},
+    publisher = {Society for Industrial and Applied Mathematics},
+    journal   = {SIAM Journal on Applied Mathematics},
+    issn      = {0036-1399,1095-712X},
+    year      = {1989},
+    volume    = {49},
+    issue     = {3},
+    pages     = {749--783},
+    url       = {http://doi.org/10.2307/2101984}
+}
+@article{darcy_law1,
+  title={The flow of heterogeneous fluids through porous media},
+  author={Muskat, Morris and Meres, Milan W},
+  journal={Physics},
+  volume={7},
+  number={9},
+  pages={346--363},
+  year={1936},
+  publisher={American Institute of Physics}
+}
+@article{darcy_law2,
+  title={Development of a generalized Darcy equation},
+  author={Tek, MR},
+  journal={Journal of Petroleum Technology},
+  volume={9},
+  number={06},
+  pages={45--47},
+  year={1957},
+  publisher={OnePetro}
+}
+
+
+% other GPU acceleration fields
+@article{gpu_weather,
+    title={GPU acceleration of numerical weather prediction},
+    author={Michalakes, John and Vachharajani, Manish},
+    journal={Parallel Processing Letters},
+    volume={18},
+    number={04},
+    pages={531--548},
+    year={2008},
+    publisher={World Scientific}
+}
+@article{gpu_struct,
+  title={GPU acceleration for FEM-based structural analysis},
+  author={Georgescu, Serban and Chow, Peter and Okuda, Hiroshi},
+  journal={Archives of Computational Methods in Engineering},
+  volume={20},
+  number={2},
+  pages={111--121},
+  year={2013},
+  publisher={Springer}
+}
+@article{gpu_ode,
+    author={Murray, Lawrence},
+    journal={IEEE Transactions on Parallel and Distributed Systems}, 
+    title={GPU Acceleration of Runge-Kutta Integrators},
+    year={2012},
+    volume={23},
+    number={1},
+    pages={94-101},
+    doi={10.1109/TPDS.2011.61}
+ }
+@inproceedings{gpu_chip,
+    author={Lin, Yibo},
+    booktitle={2020 IEEE/ACM International Conference On Computer Aided Design (ICCAD)}, 
+    title={GPU Acceleration in VLSI Back-end Design: Overview and Case Studies},
+    year={2020},
+    volume={},
+    number={},
+    pages={1-4},
+    doi={}
+ }
+@misc{gpu_tensorflow,
+    title={ {TensorFlow}: Large-Scale Machine Learning on Heterogeneous Systems},
+    url={https://www.tensorflow.org/},
+    note={Software available from tensorflow.org},
+    author={
+        Mart\'{i}n~Abadi and Ashish~Agarwal and Paul~Barham and Eugene~Brevdo and
+        Zhifeng~Chen and Craig~Citro and Greg~S.~Corrado and Andy~Davis and
+        Jeffrey~Dean and Matthieu~Devin and Sanjay~Ghemawat and Ian~Goodfellow and
+        Andrew~Harp and Geoffrey~Irving and Michael~Isard and Yangqing Jia and
+        Rafal~Jozefowicz and Lukasz~Kaiser and Manjunath~Kudlur and Josh~Levenberg and
+        Dandelion~Man\'{e} and Rajat~Monga and Sherry~Moore and Derek~Murray and
+        Chris~Olah and Mike~Schuster and Jonathon~Shlens and Benoit~Steiner and
+        Ilya~Sutskever and Kunal~Talwar and Paul~Tucker and Vincent~Vanhoucke and
+        Vijay~Vasudevan and Fernanda~Vi\'{e}gas and Oriol~Vinyals and Pete~Warden and
+        Martin~Wattenberg and Martin~Wicke and Yuan~Yu and Xiaoqiang~Zheng
+    },
+    year={2015},
+}
+
+@misc{opmrepo,
+  author={OPM},
+  year={2020},
+  title={Open Porous Media project},
+  url={https://github.com/OPM}
+}
+
+@article{ILU0-opt,
+    author = {Thune, Andreas and Cai, Xing and Rustad, Alf Birger},
+    title = {On the impact of heterogeneity-aware mesh partitioning and non-contributing computation removal on parallel reservoir simulations},
+    journal = {Journal of Mathematics in Industry},
+    year = {2021},
+    url = {https://mathematicsinindustry.springeropen.com/articles/10.1186/s13362-021-00108-5},
+    doi = {10.1186/s13362-021-00108-5}
+}
+

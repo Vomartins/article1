@@ -1,0 +1,219 @@
+\section{Experimental Results}
+\label{sec:experimentalresults}
+
+\IEEEPARstart{I}{n} this section, we present the experimental results. We highlight first the benchmarks used, describing their characteristics and introducing the chosen metric format that we will use to report the performance results. Second, we provide details of the different experimental setups that we used in this work, including the used CPU and GPU hardware. Finally, after the complete set of performance numbers is presented, we end the section with a discussion about the bottlenecks we encountered, explaining potential solutions or future steps to remove those bottlenecks.  
+
+\subsection{Benchmarks}
+
+We use three different benchmarks to perform the evaluations of the different libraries implemented and integrated into OPM. The first use case is the NORNE\cite{norne} case, a real-world reservoir off the coast of Norway. NORNE contains 44431 active cells, and the resulting matrix has 320419 blocks when the well contributions are included or 313133 when they are kept separate. The dataset is open-source and available in the opm-data or opm-tests repository. The second use case is based on a refined version of NORNE, in which the grid size is increased so that it contains 355407 active cells. Finally, the last benchmark used is a proprietary closed-source model containing more than 1 million active cells. Table \ref{table:benchmarks} summarizes the benchmarks, providing more details about their characteristics.
+\vspace{10pt}
+\begin{adjustbox}{minipage=\textwidth/2-3\fboxsep-2\fboxrule, fbox, captionbelow={Notation of results}, label={fig:notation}, nofloat}
+Notation: \\
+A (B+C+D+E), F, G, H $|$ I, J \\
+A: Total time (seconds) \\
+B: Assembly time (seconds) \\
+C: Linear solve time (seconds) \\
+D: Update time (seconds) \\
+E: Pre/post step (seconds) \\
+F: Overall Linearizations \\
+G: Overall Newton Iterations \\
+H: Overall Linear Iterations \\
+I: Number of colors \\
+J: Number of times BdaSolver failed and used OPM solver \\ instead \\
+If only 1 number after the '$|$' is reported, it is the number \\ of failed solves.
+\end{adjustbox}
+\vspace{10pt}
+
+OPM Flow reports results at the end of each simulation by printing them in the console. The multi-line, verbose run-times output of flow is shortened for space reasons in this paper and is summarized below such that one run only takes one line in a performance result table. The defined format is shown in Figure \ref{fig:notation}. Furthermore, when a certain date is mentioned, the latest merge commit before that date/time is used to perform the run.
+
+\begin{table*}[!t]
+\centering
+\begin{tabular}{c|c|c|c|c|c|c}
+Use Case & Active cells & Block Rows (N) & \#NNZs & \#NNZs/row & \#Wells & Type Wells\\ \hline
+NORNE  & 44431 &  44431 & 320419 & 7.21 & 3 & STD \\
+NORNE refined  & 355407 &  355407 & 2530093 & 7.11 & 3 & STD \\
+\textit{BigModel} & 1092723 &  1092723 & 6840701 & 6.26 & 5 & MSW \\
+\end{tabular}
+\caption{Selected Benchmarks and their Characteristics.}
+\label{table:benchmarks}
+\end{table*}
+
+
+\subsection{Experimental Setup}
+
+Simula\cite{simula1} is a Norse research institute. Its main activities are research, innovation, and education. The research is conducted in five areas: communication systems, cryptography, machine learning, scientific computing, and software engineering. Simula hosts the Experimental Infrastructure for Exploration of Exascale Computing\cite{simula2,simula4} (eX$^3$), a high-performance computing cluster. Some of its nodes are listed in Table \ref{tab:simula_nodes}, while Table \ref{tab:gpus} highlights the specifications of the different hardware available in terms of the number of cores, maximum tera floating point operations per second (TFLOPS), maximum available memory on board, and the maximum bandwidth on the accelerator card. 
+
+\begin{table*}[!t]
+\centering
+\begin{tabular}{l|c|c}
+Name      & CPU & GPU \\ \hline
+g001      & Intel Xeon Platinum 8168 @ 2.7 GHz & NVIDIA V100-SXM3-32GB \\
+g002      & AMD EPYC 7763 & NVIDIA A100-SXM-80GB \\
+n013/n014 & AMD EPYC 7763 & NVIDIA A100-SXM-40GB \\
+n004      & AMD EPYC 7601 & AMD Instinct MI100 \\
+n015/n016 & AMD EPYC 7763 & 2x AMD Instinct MI210 \\
+\end{tabular}
+\caption{The Different Simula Nodes and their Hardware Configuration.}
+\label{tab:simula_nodes}
+\end{table*}
+
+\begin{table*}[!t]
+\centering
+\begin{tabular}{c|c|c|c|c}
+\multirow{2}{*}{Name}      & \multirow{2}{*}{Num. cores$^1$} & \multirow{2}{*}{Max. FP64 TFLOPS} & Memory & Memory \\
+&&& size (GB) & bandwidth (GB/s) \\ \hline
+NVIDIA Tesla V100  & 5120 &  7.8 & 32 & 900 \\
+NVIDIA Tesla A100  & 6912 &  9.7 & 40/80 & 2000 \\
+AMD Instinct MI100 & 7680 & 11.5 & 32 & 1229 \\
+AMD Instinct MI210 & 6656 & 22.6 & 64 & 1638 \\
+AMD Instinct MI250 & 13312 & 45.3 & 128 & 3277 \\
+\end{tabular}
+\caption{Different GPUs and their Specifications. $^1$ NVIDIA CUDA Cores are not the same as AMD Stream Processors.}
+\label{tab:gpus}
+\end{table*}
+
+\subsection{Performance Results}
+
+First of all, to compare how the new hardware from Simula performs against our previous work, to compare the hardware from \cite{own_paper} and the nodes from Simula, the release/2020.10-rc4 is benchmarked again in Table \ref{tab:simula_2020}. All four configurations are slower on the g001 node. This is surprising since the g001 node has a CPU with a faster base clock and a faster boost clock. Their GPUs have a different memory size, but the NORNE test case does not use enough memory to fill either. One possible explanation is that the Xeon E5-2698v4 has a cache of 50 MB, whereas the Platinum 8168 has 33 MB.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c|l}
+\multirow{4}*{coupled}
+& none      & 571 (152+319+63), 1793, 1458, 21196 \\
+& cusparse  & 371 (151+123+62), 1783, 1449, 21010 $|$ 0 \\
+& opencl LS & 559 (156+303+64), 1844, 1507, 22626 $|$ 0 \\
+& opencl GC & 510 (180+218+76), 2109, 1774, 40863 $|$ 0 \\
+\end{tabular}
+\caption{g001, Tesla V100, release/2020.10-rc4}
+\label{tab:simula_2020}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c|c}
+Type Well / Library & STDWELL & MSWELL \\\hline
+Dune & yes & yes \\ 
+cusparse & yes (GPU) & yes (CPU) \\ 
+opencl & yes (GPU) & yes (CPU) \\ 
+rocsparse & yes (GPU) & yes (CPU) \\ 
+rocalution & no & no \\ 
+amgcl & no & no \\ 
+\end{tabular}
+\caption{Summary of How the Types of Wells and Their Contributions to the System Matrix are Supported by the OPM Flow (GPU) Backends.}
+\label{tab:wells}
+\end{table}
+
+Please note that previously, we experimented only with a cusparse and OpenCL solvers using solely an NVIDIA GPU and using a linear solver that allowed only for coupled wellcontributions. In the following, we test multiple solvers using other libraries (i.e., rocalution, rocsparse, and amgcl), we add an optimization technique for the ILU0 preconditioner, we extend the experimental results to include also AMD GPU hardware, and finally, we develop support for both coupled and separate for the well contributions as well as different types of wells in the GPU linear solvers. Nevertheless, because of the limited flexibility to modify a library linear solver, the separate well contributions are not fully supported for all the libraries, as explained in Section \ref{sec:implementation} Implementation. Table \ref{tab:wells} summarizes the type of well (standard (STD) or multisegment (MS)) and its support in the different GPU libraries. 
+
+Table \ref{tab:lin_solver_times} highlights the different solver libraries we evaluated and that we run on different CPU and GPU hardware. For space reasons, we highlight only the linear solver time and do not report the total time it took to run a complete reservoir simulation with OPM flow. However, the complete results of the runs are shown in Tables \ref{appendix-B}-\ref{tab:norne_times}, \ref{appendix-B}-\ref{tab:norne_ref_times}, and \ref{appendix-B}-\ref{tab:bigmod_times} for the three use cases, respectively. Please note that due to space reasons, we limit the presentation only to the fastest results that were achieved, which for the GPU was the ROCm-based implementation, and we compare it against the multiple-rank scaled results using the DUNE library on the CPU.
+
+\begin{table*}[!h]
+\centering
+\begin{tabular}{c|c|c|c|c|c|c|c}
+& Benchmark: & \multicolumn{2}{|c|}{NORNE} &\multicolumn{2}{|c|}{NORNE Refined} & \multicolumn{2}{|c}{Big Model} \\\hline
+Library & Hardware & \multirow{2}{*}{Coupled} & \multirow{2}{*}{Separate} & \multirow{2}{*}{Coupled} & \multirow{2}{*}{Separate} & \multirow{2}{*}{Coupled} & \multirow{2}{*}{Separate} \\ 
+Configuration & Device(s) & & & & & & \\\hline\hline
+DUNE,   1 MPI & EPYC 7763 & 174 & 178 & 3832 & 3847 & \textit{Err2} & 3758\\
+DUNE,   2 MPI & EPYC 7763 &  86 &  82 & 2161 & 2142 & \textit{Err2} & 1853\\
+DUNE,   4 MPI & EPYC 7763 &  45 &  39 & 1283 & 1162 & \textit{Err2} & 1097\\
+DUNE,   8 MPI & EPYC 7763 &  31 &  26 &  696 &  618 & \textit{Err2} & 593\\
+DUNE,  16 MPI & EPYC 7763 &  19 &  17 &  424 &  329 & \textit{Err2} & 359\\
+DUNE,  32 MPI & EPYC 7763 &  19 &  17 &  291 &  255 & \textit{Err2} & 251\\
+DUNE,  64 MPI & EPYC 7763 & \textbf{16} & \textbf{14} & \textbf{267} & \textbf{212} & \textit{Err2} & \textbf{215}\\
+DUNE, 128 MPI & EPYC 7763 & \textit{Err1} & \textit{Err1} & 341 & 277 & \textit{Err2} & 281\\
+rocsparse-0   & MI210 &  95 & 91 & 779 & 873 & \textbf{908} & \textbf{804}\\
+rocsparse-150 & MI210 &  \textbf{53} & 58 & \textbf{685} & 867 & 1030 & 995 \\
+rocalution    & MI210 &  94 & N/A & 1014 & N/A & \textit{same rocs} & N/A\\
+opencl-0 LS   & MI210 & 384 & 506 & 2096 & 2685 & \textit{slow}& \textit{slow}\\
+opencl-150 LS & MI210 & 101 & 147 & 1440 & 1289 & \textit{slow}& \textit{slow}\\
+amgcl, vexcl & MI210 & 235 & N/A & 4729 & N/A & \textit{slow} & N/A \\
+amgcl, vexcl & V100 & 276 & N/A & 7645 & N/A & \textit{slow} & N/A \\
+amgcl, vexcl & A100 & 195 & N/A & 4419 & N/A & \textit{slow} & N/A \\
+amgcl, cuda  & V100 & 685 & N/A & Err & N/A & \textit{slow} & N/A \\
+amgcl, cuda  & A100 & 772 & N/A & Err & N/A & \textit{slow} & N/A \\
+cusparse-0    & V100 & 95 & 86 & 1205 & 913 & \textit{same rocs} & \textit{same rocs} \\
+cusparse-0    & A100 & 118 & 101 & 1025 & 976 & \textit{same rocs} & \textit{same rocs} \\
+cusparse-150  & V100 &  60 & 59 & 1103 & 1238 & \textit{same rocs} & \textit{same rocs} \\
+cusparse-150  & A100 &  57 & \textbf{51} & 807 & \textbf{845} & \textit{same rocs} & \textit{same rocs} \\
+rocsparse-0   & MI100& 101 & 108 & 950 & 1094 & \textit{same rocs} & \textit{same rocs} \\
+rocsparse-150 & MI100&  55 &  71 & 964 & 1170 & \textit{same rocs} & \textit{same rocs} \\
+rocalution    & MI100& 110 & N/A & 1211 & N/A & \textit{slow}& N/A\\
+opencl-0 LS   & MI100& 429 & 254 & 3850 & 3465 & \textit{slow} & \textit{slow} \\
+opencl-150 LS & MI100& 143 & 135 & 1753 & 1867 & \textit{slow} & \textit{slow} \\
+amgcl, vexcl 7& MI100& 241 & N/A & 6006 & N/A & \textit{slow} & N/A \\
+\end{tabular}
+\caption{ OPM Flow Linear Solver Time in Seconds Running on Different Hardware Devices Using the Masters from 2023-4-13 Configured with the Default ILU0 Preconditioned BiCGStab Solver.}
+\label{tab:lin_solver_times}
+\end{table*}
+
+where, 
+
+\begin{itemize}
+    \item \textit{N/A} means the option is not available due to separate wells not being supported for that library,
+    \item \textit{Err1} is an OPM flow error related to the study case being too small to be distributed on 128 MPI processes,
+    \item \textit{Err2} OPM flow did not converge when using the default setting of chopping the time step ten times.
+    \item \textit{Slow} means the run was stopped before finishing due to taking a longer time compared to the software 1 MPI process, and 
+    \item \textit{Same} means the run matches the mentioned library.
+\end{itemize}
+
+Analyzing the results, we find that a GPU-based ILU0-preconditioned BiCGStab linear solver can accelerate a single dual-threaded MPI process up to 5.6x times (3832s vs 685s) for a medium-size reservoir model and up to 3.3x (174s vs. 53s) for a small size model. For the medium-size model, i.e., NORNE refined, the performance is equivalent to approximately 8 MPI dual-threaded processes when using the same type of preconditioned solver. Therefore, we believe that when benchmarking a small-size model such as NORNE, which allows the model data to fit (almost) entirely into the CPU L1 caches, the benefits of using a GPU accelerator are minimal, as highlighted by the experimental results. 
+
+Comparing the AMD ROCm rocsparse library solver with the NVIDIA CUDA corresponding implementation, we find that both perform equally well. Similarly, when we compare the older with the newer generation hardware device,s we notice an almost equal improvement in performance out-of-the-box, namely 22\% for AMD in favor of the MI210 vs. MI100 and 15\% for NVIDIA A100 vs. V100. When we analyze our fully manual implementation that uses manually written OpenCL kernel functions, which do not benefit from the highly optimized assembly-like kernel primitives, we notice a substantial slowdown of 4x (384s vs. 95s) against both the AMD ROCm rocsparse library without Jacobi and the rocalution libraries. However, the benefit of relaxing the ILU0 preconditioner by enhancing it with the jacobi-based preprocessing and, hence, increasing the parallelism, is the highest in the case of the manual OpenCL implementation with a speedup of 3.8x (384s vs. 101s) when running on the more recent AMD hardware. Finally, we also evaluated the third-party open-source library amgcl and the experiments with an out-of-the-box configuration revealed a surprising 1.35x slowdown (235s vs 174s) when comparing to a single dual-threaded CPU run of flow, or in other words, a speedup of 2.5x (235s vs. 94s) in favor of the AMD ROCm rocalution based solver. Please note that the aforementioned evaluation is considering only the NORNE benchmark. However, an equivalent analysis can be performed for the other two use cases with approximately similar conclusions. This is left as an exercise for the reader because this can be easily inferred from Table \ref{tab:lin_solver_times}. 
+
+Tables \ref{appendix-B}-\ref{tab:norne_times} to \ref{appendix-B}-\ref{tab:bigmod_times} show the complete performance results of a complete OPM flow reservoir simulation, including the times for the assembly, system update, and the pre- and post-processing time, as well as the number of iterations performed in the linear solver following the format described in Figure \ref{fig:notation}. Due to space reasons, we highlight in these tables only the runs with different MPI processes and the AMD ROCm rocsparse solvers that performed the best among the GPU solutions tested. Please note that the GPU implementations do not currently support multiple ranks and, as such, cannot benefit from parallel multi-rank assembly, update, and post-processing that further improves the performance of multiple CPU MPI ranks experiments vs the GPU ones because the assembly is performed on a single CPU when a GPU solver is chosen. 
+
+\subsection{Profile numbers}
+
+To understand the bottlenecks of the ILU0-preconditioned linear solver on the GPU, we perform several profiles using the profilers available in the different GPU vendors' toolboxes. That is, we use the NVIDIA Nsight Compute (ncu) profiler to gain insight into the OPM flow simulator for the fastest CUDA implementation, namely the cusparse ILU0 solver with block jacobi, and run it with settings for 0 and 150 jacobi blocks. We analyze the profile numbers for all the benchmarks for both cases when the well contributions are included in the matrix or treated separately. For the AMD GPU implementation, we select the rocsparse implementation with block jacobi running with the same configurations for three use cases using the rocprof profilers. Additionally, we profile the big model benchmark using the more high-level omniperf tool from the ROCM framework. The results of these profiles are shown in Tables \ref{appendix-B}-\ref{tab:ncu_profiler}, \ref{appendix-B}-\ref{tab:rocprofiler}, and \ref{tab:omniperf} for the three benchmarks. Please note that we do not report numbers for the complete preconditioned solver, but we select only the most important kernels in the preconditioner (i.e., the lower and upper triangular solves) and blocked scale (i.e., bsrsv2), a fully parallel operation, and blocked sparse matrix-vector multiplication (i.e., bsrmv) in the solver part to show the (in)efficiencies of the GPU implementation when scaling the model size.
+
+The first thing we notice is the contrast between the scale\_bsrsv2 operation and how this is able to utilize the resources efficiently when increasing the size of the model due to its inherent parallelism as opposed to the lower and upper solver that is the core of the ILU0 application, which are not able to leverage the massive resources available on the GPU. For example, in terms of memory throughput, only 104 GB/s is achieved, which accounts for less than 10\% of the available memory bandwidth being utilized. For the spmv kernel, this reaches 343 GB/s, which is more than 3x better, but it is still far from the maximum available. This is caused in part due to the sequential nature of the ILU0 application and the irregular memory accesses in the spmv. Furthermore, we see that when increasing the parallelism in the ILU0 preconditioner using the Jacobi technique, the bandwidth is almost doubled from 118 GB/s to 196 GB/s, as shown in Table \ref{tab:omniperf}. However, this is still just a small percentage of the total maximum available bandwidth. Please note that due to issues with running omniperf for NORNE and NORNE modified, we report omniperf profile numbers only for the bigmod use case. In terms of resources, we notice that we have plenty of resources left on the board that are not utilized (especially for the lower and upper solves), which can be attributed to the fact that we do not have enough data to feed these resources since the sequential accesses and dependencies in the ILU0 nature prevent further parallelism.  
+
+\begin{table*}[!t]
+\centering
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+ & Benchmark: & \multicolumn{2}{|c|}{NORNE} &\multicolumn{2}{|c|}{NORNE Refined} & \multicolumn{4}{|c}{Big Model} \\\cline{2-10}
+Runtime & Config Wells & \multicolumn{2}{|c|}{coupled} & \multicolumn{2}{|c|}{coupled} & \multicolumn{2}{|c|}{coupled} & \multicolumn{2}{|c}{separate}\\ \cline{2-10}
+metric & \#Jac Blocks & 0 & 150 & 0 & 150 & 0 & 150 & 0 & 150 \\ \hline\hline
+\multicolumn{2}{l|}{copy\_to\_jacobiMatrix} & - & 3.4 & - & 55.3 & - & 126.9 & - & 113.7  \\
+\multicolumn{2}{l|}{check\_zeros\_on\_diagonal}  & 1.7 & 2.1 & 15.5 & 30.9 & 36.4 & 72.6 & 43.1 & 60.7 \\
+\multicolumn{2}{l|}{copy\_to\_GPU}  & 5.7 & 6.7 & 48.1 & 84.1 & 128.7 & 208.5 & 112.2 & 205.5 \\
+\multicolumn{2}{l|}{decomp}  & 4.7 & 1.4 & 49.9 & 19.4 & 90.7 & 68.6 & 36.7 & 26.0 \\
+\multicolumn{2}{l|}{total\_solve}  & 77.6 & 32.1 & 603.3 & 450.1 & 299.5 & 245.6 & 555.2 & 576.5 \\
+\multicolumn{2}{c|}{prec\_apply}  & 66.9 & 22.3 & 532 & 376 & 261.9 & 209.0 & 298.9 & 232.7 \\
+\multicolumn{2}{c|}{spmv}  & 2.4 & 2.7 & 41.3 & 43 & 22.2 & 22.4 & 28.7 & 28.1 \\
+\multicolumn{2}{c|}{wells}  & - & - & - & - & - & - & 209.1 & 297.1 \\
+\multicolumn{2}{c|}{rest}  & 5.8 & 5 & 20.2 & 21 & 9.3 & 8.3 & 11.4& 11.4 \\\hline
+\multicolumn{2}{l|}{TOTAL time timers}  & 89.7 & 45.7 & 716.8 & 639.8 & 555.9 & 722.8 & 740.1 & 975.2 \\
+\multicolumn{2}{l|}{Linear solve time (OPM)}  & 91.2 & 47.1  & 780 & 671 & 1055.9 & 1304.5 & 781.8 & 1021.9 \\\hline
+\multicolumn{2}{l|}{linearize wells}  & 0.6 & 0.6 & 3.9 & 4.1 & 476.7 & 460.3 & 1.8 & 1.7 \\
+% \multicolumn{2}{l|}{BdaSolverInfo::apply:}  &  &  & &  & & & &  \\
+% \multicolumn{2}{l|}{ISTLSolverEbos::solve:}  &  & & &  & & & &  \\
+\end{tabular}
+\caption{ OPM Flow Linear Solver Time in Seconds Running on Different Hardware Devices Using the Masters from 2023-4-13.}
+\label{tab:runtime_profiles}
+\end{table*}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{c|c|c|c}
+& Benchmark: & \multicolumn{2}{|c}{Big Model} \\\hline
+Profiled & Profiled & \multirow{2}{*}{0 blocks} & \multirow{2}{*}{150 blocks} \\ 
+Kernel & Metric & & \\\hline\hline
+\multirow{8}{*}{ilu\_apply} & Bandwidth(GB/s) & 118 & 196 \\
+ & LDS util (\%) & 30 & 37 \\
+ & Vector L1 Data Cache Hit(\%) & 72 & 71\\
+ & Vector L1 Data Cache BW(\%) & 16 & 16\\
+ & Vector L1 Data Cache util(\%) & 99 & 98\\
+ & Vector L1 Coalescing(\%) & 56 & 51\\
+ & L2 Cache Hit (\%) & 84 & 69\\
+ & L2 Cache Util (\%) & 99 & 98 \\\hline
+\multirow{1}{*}{ilu\_decomp} & Bandwidth(GB/s) & 30 & 57 \\\hline
+\multirow{1}{*}{spmv} & Bandwidth(GB/s) & 806 & 807 \\
+\end{tabular}
+\caption{OPM Flow Profiles of the GPU rocSparse Linear Solver using the 0 and 150 Jacobi Blocks Preconditioner Settings on the AMD MI210 using the Omniperf Tool.}
+\label{tab:omniperf}
+\end{table}
+
+Finally, to clearly match the above fine-metrics profile, we also perform course-grained profiles in the form of a run-time analysis by measuring the total time it takes to run the different parts in the GPU solver backend of the OPM flow simulator. We timed the different parts of the rocsparse GPU solver implementation, and we printed the accumulated timers at the end of the simulation. Table \ref{tab:runtime_profiles} highlights the output of this analysis. These numbers are grouped by the computationally different parts of the solver, such as the total time it takes to do the decomposition, how much it takes to perform spmv, as well as how long solving for the well contributions takes. Additionally, the copying and transfer from/to the GPU are included in this analysis. We observe that for the latter, these take a non-negligible amount and that they scale poorly with increasing size, which partly explains the lower relative speed-up in performance when comparing NORNE against NORNE refined, i.e., 89.7s vs 45.7s, which is almost 2x speedup, versus 716.8s vs 639.8s that is only a minor 12\% speed-up. The trend is extended for the bigger model, in which case we even notice a slowdown for the more parallel 150-blocks ILU0 implementation. Therefore, one of the key conclusions to optimize is to reduce the cost for the memory transfers and copy to jacobi matrix. Furthermore, the different type of wells seems to contribute as well to the relative slowdown, and it will require attention. 
+

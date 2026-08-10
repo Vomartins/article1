@@ -1,0 +1,158 @@
+\relax 
+\citation{OPM}
+\citation{dune}
+\citation{saad1,saad2}
+\citation{ILU0-opt}
+\citation{CPR}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}\protected@file@percent }
+\citation{gpu_weather}
+\citation{gpu_struct}
+\citation{gpu_ode}
+\citation{gpu_chip}
+\citation{gpu_tensorflow}
+\citation{flow_paper}
+\citation{reservoir_sim1,reservoir_sim2}
+\citation{OPM}
+\citation{flow_paper}
+\citation{blackoil_model}
+\citation{eclipse}
+\citation{resinsight}
+\citation{darcy_law1,darcy_law2}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Background}{2}{}\protected@file@percent }
+\newlabel{sec:background}{{II}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}OPM Project}{2}{}\protected@file@percent }
+\citation{flow_manual}
+\citation{dune-istl}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The General Structure of OPM Flow.\relax }}{3}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:flow_chart}{{1}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}ILU0}{3}{}\protected@file@percent }
+\citation{dune-istl}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Different OPM Modules and their Description.\relax }}{4}{}\protected@file@percent }
+\newlabel{tab:OPM_modules}{{I}{4}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces ILU0 application\relax }}{4}{}\protected@file@percent }
+\newlabel{alg:ilu_apply}{{1}{4}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces ILU0 decomposition\relax }}{4}{}\protected@file@percent }
+\newlabel{alg:ilu_decomp}{{2}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}GPU Architecture and Programming Model}{4}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Some OpenCL defintions and their CUDA counterparts.\relax }}{4}{}\protected@file@percent }
+\newlabel{tab:cuda_opencl_glossary}{{II}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Implementation}{4}{}\protected@file@percent }
+\newlabel{sec:implementation}{{III}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}OPM Flow}{4}{}\protected@file@percent }
+\citation{blocked_spmv}
+\citation{dune}
+\citation{blocked_spmv}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Bicgstab solver}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Sparse Matrix-Vector multiplication}{5}{}\protected@file@percent }
+\newlabel{lab:spmv}{{\mbox  {III-C}}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}ILU0}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Block-Jacobi-ILU0}{5}{}\protected@file@percent }
+\newlabel{lab:blockjacobi}{{\mbox  {III-E}}{5}}
+\citation{Thune_2021}
+\citation{andreas}
+\citation{umfpack}
+\citation{amgcl1,amgcl2}
+\citation{vexcl}
+\citation{eigen}
+\citation{blaze}
+\citation{rocalution}
+\citation{rocm}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Copy indexes\relax }}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-F}}Well Contributions}{6}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Adding the wellcontributions to matrix A\relax }}{6}{}\protected@file@percent }
+\newlabel{alg:wells_coupled}{{4}{6}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Adding the wellcontributions separately\relax }}{6}{}\protected@file@percent }
+\newlabel{alg:wells_separate}{{5}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-G}}Amgcl}{6}{}\protected@file@percent }
+\citation{cusparse}
+\citation{cublas}
+\citation{rocsparse}
+\citation{norne}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Memory layout of blocks in OPM (left) and amgcl (right).\relax }}{7}{}\protected@file@percent }
+\newlabel{fig:amgcl_layout}{{2}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-H}}Rocalution}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-I}}cuSPARSE}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-J}}Rocsparse}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-K}}Fallback}{7}{}\protected@file@percent }
+\newlabel{sec:fallback}{{\mbox  {III-K}}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Experimental Results}{7}{}\protected@file@percent }
+\newlabel{sec:experimentalresults}{{IV}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Benchmarks}{7}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Notation of results\relax }}{7}{}\protected@file@percent }
+\newlabel{fig:notation}{{4}{7}}
+\citation{simula1}
+\citation{simula2,simula4}
+\citation{own_paper}
+\newlabel{fig:flow_chart2}{{\caption@xref {fig:flow_chart2}{ on input line 241}}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The flowchart of different implementations.\relax }}{8}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Selected Benchmarks and their Characteristics.\relax }}{8}{}\protected@file@percent }
+\newlabel{table:benchmarks}{{III}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces The Different Simula Nodes and their Hardware Configuration.\relax }}{8}{}\protected@file@percent }
+\newlabel{tab:simula_nodes}{{IV}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Experimental Setup}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Performance Results}{8}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Different GPUs and their Specifications. $^1$ NVIDIA CUDA Cores are not the same as AMD Stream Processors.\relax }}{9}{}\protected@file@percent }
+\newlabel{tab:gpus}{{V}{9}}
+\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces g001, Tesla V100, release/2020.10-rc4\relax }}{9}{}\protected@file@percent }
+\newlabel{tab:simula_2020}{{VI}{9}}
+\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Summary of How the Types of Wells and Their Contributions to the System Matrix are Supported by the OPM Flow (GPU) Backends.\relax }}{9}{}\protected@file@percent }
+\newlabel{tab:wells}{{VII}{9}}
+\@writefile{lot}{\contentsline {table}{\numberline {VIII}{\ignorespaces  OPM Flow Linear Solver Time in Seconds Running on Different Hardware Devices Using the Masters from 2023-4-13 Configured with the Default ILU0 Preconditioned BiCGStab Solver.\relax }}{10}{}\protected@file@percent }
+\newlabel{tab:lin_solver_times}{{VIII}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Profile numbers}{10}{}\protected@file@percent }
+\citation{rocsparse}
+\citation{opmrepo}
+\@writefile{lot}{\contentsline {table}{\numberline {IX}{\ignorespaces  OPM Flow Linear Solver Time in Seconds Running on Different Hardware Devices Using the Masters from 2023-4-13.\relax }}{11}{}\protected@file@percent }
+\newlabel{tab:runtime_profiles}{{IX}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces OPM Flow Profiles of the GPU rocSparse Linear Solver using the 0 and 150 Jacobi Blocks Preconditioner Settings on the AMD MI210 using the Omniperf Tool.\relax }}{11}{}\protected@file@percent }
+\newlabel{tab:omniperf}{{X}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusion and Future Work}{11}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{V}{11}}
+\newlabel{sec:acknowledgments}{{V}{11}}
+\bibstyle{IEEEtran}
+\bibdata{sample}
+\bibcite{OPM}{1}
+\bibcite{dune}{2}
+\bibcite{saad1}{3}
+\bibcite{saad2}{4}
+\bibcite{ILU0-opt}{5}
+\bibcite{CPR}{6}
+\bibcite{gpu_weather}{7}
+\bibcite{gpu_struct}{8}
+\bibcite{gpu_ode}{9}
+\bibcite{gpu_chip}{10}
+\bibcite{gpu_tensorflow}{11}
+\bibcite{flow_paper}{12}
+\bibcite{reservoir_sim1}{13}
+\bibcite{reservoir_sim2}{14}
+\bibcite{blackoil_model}{15}
+\bibcite{eclipse}{16}
+\bibcite{resinsight}{17}
+\bibcite{darcy_law1}{18}
+\bibcite{darcy_law2}{19}
+\bibcite{flow_manual}{20}
+\bibcite{dune-istl}{21}
+\bibcite{blocked_spmv}{22}
+\bibcite{Thune_2021}{23}
+\bibcite{andreas}{24}
+\bibcite{umfpack}{25}
+\bibcite{amgcl1}{26}
+\bibcite{amgcl2}{27}
+\bibcite{vexcl}{28}
+\bibcite{eigen}{29}
+\bibcite{blaze}{30}
+\bibcite{rocalution}{31}
+\bibcite{rocm}{32}
+\bibcite{cusparse}{33}
+\bibcite{cublas}{34}
+\bibcite{rocsparse}{35}
+\bibcite{norne}{36}
+\bibcite{simula1}{37}
+\bibcite{simula2}{38}
+\bibcite{simula4}{39}
+\bibcite{own_paper}{40}
+\bibcite{opmrepo}{41}
+\@writefile{toc}{\contentsline {section}{References}{12}{}\protected@file@percent }
+\gdef \@abspage@last{12}

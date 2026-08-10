@@ -1,0 +1,41 @@
+\section{Related works}
+\label{sec:relres}
+
+\IEEEPARstart{O}{ther} reservoir simulators include:\\
+
+\begin{itemize}
+\item BOAST\cite{boast1,boast2}: Black Oil Applied Simulation Tool is a free simulator from the U.S Department of Energy. It uses IMPES (finite difference, implicit pressure, explicit saturation). The last release was in 1998.
+\item MRST\cite{mrst}: Matlab Reservoir Simulation Toolbox is developed by SINTEF Applied Mathematics, which also contributed to OPM. It also includes third-party modules from developers from many different research institutes.
+% MRST has slightly simplified NORNE, SPE1 and SPE9, but no benchmarks ==>TODO-RN: then I would say add that to the text. But didn't they publish any results using Norne? Maybe ask Markus?
+\item ECLIPSE\cite{eclipse}: Originally developed by ECL (Exploration Consultants Limited), now owned and developed by Schlumberger. Eclipse is an industry reference simulator. The in- and output files of OPM are compatible with Eclipse software.
+\item INTERSECT\cite{intersect}: Also from Schlumberger, it has similar features as Eclipse. Intersect has more support for massively parallel execution, with a GPU-accelerated linear solver and faster linearization of equations.
+\item ECHELON\cite{echelon}: Echelon is the only reservoir simulator that is fully GPU accelerated. It uses a GMRES solver with a CPR preconditioner. A maximum of 12 million active cells can be simulated on a single GPU.
+\item TeraPOWERS\cite{terapowers}: TeraPOWERS is an in-house simulator by Aramco. It boasts the world's first trillion-cell simulation, performed on 150000 cores of the Shaheen II supercomputer\cite{shaheen}.
+\item GEOSX\cite{geosx}: An open-source simulator, specifically for modeling carbon storage. It does not appear to have a three-phase black oil simulation. There is a possibility of using CUDA, but it is unclear which parts are accelerated exactly.
+\item tNavigator\cite{tnavigator}: A black oil, compositional, and thermal reservoir simulator. Allows the linear solver part to run on a GPU, as well as some other parts.
+% https://doi.org/10.2118/196864-MS compares with 100 modifications of SPE10
+\item PFLOTRAN\cite{pflotran}: An open source simulator that uses PETSc\cite{petsc} for domain decomposition to achieve parallelism. Not accelerated on GPU but is able to scale easily on CPUs.
+\end{itemize}
+
+% other sparse linear algebra on GPU
+Numerous libraries that support blocked sparse linear algebra on GPU exist, including cusparse\cite{cusparse}, magma\cite{magma}\cite{magma_paper}, viennacl\cite{viennacl}, ginkgo\cite{ginkgo-toms-2022}, amgcl\cite{amgcl1}, rocalution\cite{rocalution}, and rocsparse\cite{rocsparse}.
+Of these, only cusparse does not support AMG GPUs at all, others might need the HIP\cite{hip} module from the ROCm\cite{rocm} framework.
+Rocalution actually uses many functions from rocsparse underneath.
+Table \ref{tab:algebra_packages} shows the different libraries and what functions they support.
+The Chow Patel ILU0 indicates an iterative, highly parallel decomposition\cite{chow_patel_decomp} and application\cite{chow_patel_apply}.
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{c|c|c|c|c|c}
+Package & ILU0 & Chow Patel ILU0 & AMG & CPR & bicgstab \\ \hline
+cusparse   & \checkmark & - & - & - & \checkmark$^1$ \\
+magma      & \checkmark & \checkmark & - & - & \checkmark \\
+viennacl   & \checkmark & \checkmark & \checkmark & - & \checkmark \\
+ginkgo     & \checkmark & \checkmark & \checkmark & - & \checkmark \\
+amgcl      & - & \checkmark & \checkmark & \checkmark & \checkmark \\
+rocalution & \checkmark & - & \checkmark & - & \checkmark \\
+rocsparse  & \checkmark & - & - & - & \checkmark$^1$ \\
+\end{tabular}
+\caption{Different sparse linear algebra libraries and their GPU components. $^1$ bicgstab is not readily available but can be constructed using functions from that library.}
+\label{tab:algebra_packages}
+\end{table}

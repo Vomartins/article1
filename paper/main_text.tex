@@ -1,0 +1,78 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{cite}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage[justification=centering]{caption}
+\usepackage{xr}
+
+\externaldocument{appendices}
+
+\begin{document}
+
+
+\title{An Evaluation and Comparison of GPU Hardware and Solver Libraries for Accelerating the OPM Flow Reservoir Simulator}
+
+\author{Tong Dong Qiu, Andreas Thune, Vinícius Oliveira Martins, Markus Blatt, Alf Birger Rustad, R\u{a}zvan Nane
+	\thanks{T. D. Qiu is with Big Data Accelerate B.V., The Netherlands.}
+	\thanks{A. Thune is with Simula Research Laboratory, Norway.}
+	\thanks{V. O. Martins is with Institute of Mathematics, Statistics and Scientific Computation, Universidade Estadual de Campinas, Brazil.}
+	\thanks{M. Blatt is with OPM-OS AS, Norway.}
+	\thanks{A. B. Rustad is with Equinor S.A., Norway.}
+	\thanks{R. Nane is with Big Data Accelerate B.V., The Netherlands.}
+}
+
+
+% The paper headers
+\markboth{IEEE Transactions on Parallel and Distributed Systems
+	,~Vol.~14, No.~8, August~2021}%
+{Shell \MakeLowercase{\textit{et al.}}: A Sample Article Using IEEEtran.cls for IEEE Journals}
+
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2021 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+\maketitle
+
+\begin{abstract}
+	\input{0_Abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+	I.6.8.h Parallel, B.2.1.b Parallel, B.2.2.a Simulation, C.1.2.g Parallel processors, C.1.2.j SIMD processors.
+\end{IEEEkeywords}
+
+\input{1_Introduction}
+
+\newpage
+\input{2_Background}
+
+%\input{3_Related_works}
+
+\input{4_Implementation}
+
+\input{6_Results}
+
+\input{7_Conclusion}
+
+\input{acknowledgment}
+
+\bibliographystyle{IEEEtran}
+\bibliography{sample}
+
+\vfill
+
+\end{document}
+	

@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "Bash(latexmk *)",
+      "Bash(pdflatex *)",
+      "Bash(bibtex *)",
+      "Bash(biber *)",
+      "Bash(latexdiff *)",
+      "Bash(latexdiff-vc *)",
+      "Bash(texcount *)",
+      "Bash(pdfinfo *)"
+    ],
+    "ask": [
+      "Edit",
+      "Write",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git tag *)"
+    ],
+    "deny": [
+      "Edit(/submitted/**)",
+      "Edit(/paper/figures/**)",
+      "Edit(/.claude/**)",
+      "Bash(git push *)",
+      "Bash(git reset *)",
+      "Bash(git rebase *)",
+      "Bash(git checkout -- *)",
+      "Bash(rm *)"
+    ],
+    "disableBypassPermissionsMode": "disable"
+  }
+}
